@@ -1,0 +1,25 @@
+{
+  "name": "composed-validation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/composed-validators.js",
+  "module": "dist/composed-validators.js",
+  "scripts": {
+    "test": "jest --watchAll",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/jest": "^24.0.11",
+    "babel-jest": "^24.7.0",
+    "jest": "^24.7.0",
+    "prettier": "^1.16.4",
+    "typescript": "^3.4.1"
+  }
+}
