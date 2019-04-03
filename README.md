@@ -7,15 +7,21 @@ _Note: This is a holding spot for a pattern to handle form validations, especial
 The general idea is to compose form field validators out of smaller, focused functions:
 
 ```javascript
-import { validate, isNumber, isRequired, isPositive, isOneOf  } from 'composed-validators;
+import {
+  validate,
+  isNumber,
+  isRequired,
+  isPositive,
+  isOneOf,
+} from 'composed-validators';
 
-const errorMessage = validate(number(), isPositive())('-100')
+const errorMessage = validate(isNumber(), isPositive())('-100');
 // => 'Must be positive'
 
-const errorMessage = validate(isRequired())('')
+const errorMessage = validate(isRequired())('');
 // => 'Required'
 
-const errorMessage = validate(isOneOf(['admin', 'superAdmin']))('not an admin')
+const errorMessage = validate(isOneOf(['admin', 'superAdmin']))('not an admin');
 // => 'Must be "admin" or "superAdmin"'
 ```
 
