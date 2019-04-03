@@ -12,12 +12,12 @@ export const validate: Validator = (...validatorFuncs) => (value) => {
   return errorString !== '' ? errorString : undefined;
 };
 
-export function email(): ValidatorFunc {
+export function isEmail(customMsg?: string): ValidatorFunc {
   return (value) => {
     const emailRegex = new RegExp(/.*@.*\..*/);
 
     if (!emailRegex.test(value)) {
-      return 'Invalid email format';
+      return customMsg || 'Invalid email format';
     }
   };
 }

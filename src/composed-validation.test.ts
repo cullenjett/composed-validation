@@ -1,4 +1,4 @@
-import { validate, email } from './composed-validation';
+import { validate, isEmail } from './composed-validation';
 
 describe('validate()', () => {
   it('calls each given middleware function', () => {
@@ -27,14 +27,19 @@ describe('validate()', () => {
   });
 });
 
-describe('email()', () => {
+describe('isEmail()', () => {
   it('returns an error if the email is in the wrong format', () => {
-    const errMsg = validate(email())('not_a_valid_email');
+    const errMsg = validate(isEmail())('not_a_valid_email');
     expect(errMsg).toBeTruthy();
   });
 
   it('does not return an error if the email is in the correct format', () => {
-    const errMsg = validate(email())('a_valid_email@example.com');
+    const errMsg = validate(isEmail())('a_valid_email@example.com');
     expect(errMsg).toBe(undefined);
+  });
+
+  it('can return a custom error message', () => {
+    const errMsg = validate(isEmail('My custom message'))('not_a_valid_email');
+    expect(errMsg).toEqual('My custom message');
   });
 });
