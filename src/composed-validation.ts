@@ -33,3 +33,20 @@ export function isRequired(customMsg?: string): ValidatorFunc {
     return error;
   };
 }
+
+export function isOneOf(options: string[], customMsg?: string): ValidatorFunc {
+  return (value) => {
+    let error;
+
+    if (!options.includes(value)) {
+      // Eww. But it's tested, so...
+      const optionsWithOr = `${options.slice(0, -1).join(', ')}${
+        options.length > 2 ? ',' : ''
+      } or ${options[options.length - 1]}`;
+
+      error = customMsg || `Must be ${optionsWithOr}`;
+    }
+
+    return error;
+  };
+}

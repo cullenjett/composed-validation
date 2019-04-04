@@ -1,4 +1,4 @@
-import { validate, isEmail, isRequired } from './composed-validation';
+import { validate, isEmail, isRequired, isOneOf } from './composed-validation';
 
 describe('validate()', () => {
   it('calls each given middleware function', () => {
@@ -57,7 +57,36 @@ describe('isRequired()', () => {
   });
 
   it('can return a custom error message', () => {
-    let errMsg = validate(isRequired('My custom message'))(undefined);
+    const errMsg = validate(isRequired('My custom message'))(undefined);
+    expect(errMsg).toEqual('My custom message');
+  });
+});
+
+describe('isOneOf()', () => {
+  it('returns an error when the value is not in given the array of options', () => {
+    const errMsg = validate(isOneOf(['admin', 'super admin']))('not an admin');
+    expect(errMsg).toBeTruthy();
+  });
+
+  it('returns an error with the options joined with "or"', () => {
+    let errMsg = validate(isOneOf(['admin', 'super admin']))('not an admin');
+    expect(errMsg).toContain('admin or super admin');
+
+    errMsg = validate(isOneOf(['admin', 'super admin', 'mega admin']))(
+      'not an admin'
+    );
+    expect(errMsg).toContain('admin, super admin, or mega admin');
+  });
+
+  it('does not return an error when the value is in given the array of options', () => {
+    const errMsg = validate(isOneOf(['admin', 'super admin']))('admin');
+    expect(errMsg).toBe(undefined);
+  });
+
+  it('can return a custom error message', () => {
+    const errMsg = validate(
+      isOneOf(['admin', 'super admin'], 'My custom message')
+    )('not an admin');
     expect(errMsg).toEqual('My custom message');
   });
 });
