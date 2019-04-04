@@ -21,3 +21,15 @@ export function isEmail(customMsg?: string): ValidatorFunc {
     }
   };
 }
+
+export function isRequired(customMsg?: string): ValidatorFunc {
+  return (value) => {
+    let error;
+
+    if (value === undefined || value === null || value === '') {
+      error = customMsg || 'Required';
+    }
+
+    return error;
+  };
+}

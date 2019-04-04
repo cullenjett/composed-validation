@@ -1,4 +1,4 @@
-import { validate, isEmail } from './composed-validation';
+import { validate, isEmail, isRequired } from './composed-validation';
 
 describe('validate()', () => {
   it('calls each given middleware function', () => {
@@ -40,6 +40,24 @@ describe('isEmail()', () => {
 
   it('can return a custom error message', () => {
     const errMsg = validate(isEmail('My custom message'))('not_a_valid_email');
+    expect(errMsg).toEqual('My custom message');
+  });
+});
+
+describe('isRequired()', () => {
+  it('returns an error if the value is undefined, null, or empty string', () => {
+    let errMsg = validate(isRequired())(undefined);
+    expect(errMsg).toBeTruthy();
+
+    errMsg = validate(isRequired())(null);
+    expect(errMsg).toBeTruthy();
+
+    errMsg = validate(isRequired())('');
+    expect(errMsg).toBeTruthy();
+  });
+
+  it('can return a custom error message', () => {
+    let errMsg = validate(isRequired('My custom message'))(undefined);
     expect(errMsg).toEqual('My custom message');
   });
 });
