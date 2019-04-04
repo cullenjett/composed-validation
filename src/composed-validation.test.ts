@@ -1,4 +1,10 @@
-import { validate, isEmail, isRequired, isOneOf } from './composed-validation';
+import {
+  validate,
+  isEmail,
+  isRequired,
+  isOneOf,
+  isNumber,
+} from './composed-validation';
 
 describe('validate()', () => {
   it('calls each given middleware function', () => {
@@ -88,5 +94,22 @@ describe('isOneOf()', () => {
       isOneOf(['admin', 'super admin'], 'My custom message')
     )('not an admin');
     expect(errMsg).toEqual('My custom message');
+  });
+});
+
+describe('isNumber()', () => {
+  it('returns an error when the value is not coercable into a number', () => {
+    const errMsg = validate(isNumber())('1 hundred');
+    expect(errMsg).toBeTruthy();
+  });
+
+  it('does not return an error when the value is coercable into a number', () => {
+    const errMsg = validate(isNumber())('123');
+    expect(errMsg).toBe(undefined);
+  });
+
+  it('can return a custom error message', () => {
+    const errMsg = validate(isNumber('Gotta be a number, fool'))('1 hundred');
+    expect(errMsg).toEqual('Gotta be a number, fool');
   });
 });

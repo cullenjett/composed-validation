@@ -50,3 +50,15 @@ export function isOneOf(options: string[], customMsg?: string): ValidatorFunc {
     return error;
   };
 }
+
+export function isNumber(customMsg?: string): ValidatorFunc {
+  return (value) => {
+    let error;
+
+    if (isNaN(Number(value))) {
+      error = customMsg || 'Must be a number';
+    }
+
+    return error;
+  };
+}
