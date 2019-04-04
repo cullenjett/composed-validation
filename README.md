@@ -1,10 +1,10 @@
 # Composed Validators
 
-A super lightweight set of form validation utility functions.
+A super lightweight set of form validation utility functions. _Note: this isn't a published package, it's mostly intended to be a place to store this pattern for reference_
 
-_Note: This is a holding spot for a pattern to handle form validations, especially in situations where something like [yup](https://github.com/jquense/yup) is overkill. It would probaby be more appropriate as a gist rather than a repo/unpublished package. YOLO._
+## What is it?
 
-The general idea is to compose form field validators out of smaller, focused functions:
+The general idea is to compose form field validators out of smaller, focused functions. Packages like [yup](https://github.com/jquense/yup) are great for object schema validation, but sometimes you just don't want to add another dependency for a simple use-case. This pattern can serve as a simpler alternative:
 
 ```javascript
 import {
